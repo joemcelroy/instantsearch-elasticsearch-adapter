@@ -10,11 +10,13 @@
     "inlineSources": false,
     "isolatedModules": true,
     "moduleResolution": "node",
+    "module": "esnext",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"]
 }

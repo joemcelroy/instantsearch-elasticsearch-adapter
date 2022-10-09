@@ -1,5 +1,5 @@
-const withTM = require("next-transpile-modules")(["ui"]);
+const withTM = require("next-transpile-modules")(["@instantsearch-elasticsearch-adapter/client", "@instantsearch-elasticsearch-adapter/api"]);
 
 module.exports = withTM({
-  reactStrictMode: true,
+  // reactStrictMode: true,
 });
