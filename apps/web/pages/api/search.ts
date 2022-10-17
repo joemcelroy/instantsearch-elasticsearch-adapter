@@ -22,13 +22,14 @@ const apiConfig = {
   },
 };
 
-const client = new Client(apiConfig);
+const apiClient = Client(apiConfig);
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const results = await client.handleRequest(req, {
+  const body = JSON.parse(req.body);
+  const results = await apiClient.handleRequest(body, {
     getQuery: (query, search_attributes) => {
       return [
         {

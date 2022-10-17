@@ -9,23 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "algoliasearch": "^4.14.2",
-    "@instantsearch-elasticsearch-adapter/client": "*",
     "@instantsearch-elasticsearch-adapter/api": "*",
+    "@instantsearch-elasticsearch-adapter/client": "*",
+    "algoliasearch": "^4.14.2",
     "next": "12.3.1",
+    "nextra": "alpha",
+    "nextra-theme-docs": "alpha",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-instantsearch-dom": "^6.36.0"
   },
   "devDependencies": {
-    "@types/react-instantsearch-dom": "^6.11.0",
     "@babel/core": "^7.0.0",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",
+    "@types/react-instantsearch-dom": "^6.11.0",
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
     "next-transpile-modules": "9.0.0",
     "tsconfig": "*",
-    "typescript": "^4.5.3"
+    "typescript": "^4.5.3",
+    "tailwindcss": "^3.0.16"
   }
 }

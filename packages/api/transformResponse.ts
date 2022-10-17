@@ -163,8 +163,7 @@ export default function transformResponse(
 
 export const transformFacetValuesResponse = (
   response: ElasticsearchResponseBody,
-  instantsearchRequest: AlgoliaMultipleQueriesQuery,
-  config: ClientConfig
+  instantsearchRequest: AlgoliaMultipleQueriesQuery
 ) => {
   const aggregations = response.aggregations || {};
   return {

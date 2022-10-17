@@ -1,0 +1,36 @@
+---
+title: Cloudflare Workers
+full: true
+---
+
+```js
+import { Router } from "worktop";
+import Client from "@instantsearch-elasticsearch-adapter/api";
+
+// Initialize
+const API = new Router();
+
+const apiConfig = {
+  connection: {
+    host: "<host>",
+    apiKey: "<elasticsearch-api-key>",
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors", "query"],
+    result_attributes: ["title", "actors", "query"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+    ],
+  },
+};
+
+API.add("POST", "/api/search", async (req, res) => {
+  const body = await req.body();
+  const instantSearchBody = JSON.parse(body);
+  const results = await apiClient.handleRequest(instantSearchBody);
+
+  res.send(200, results);
+});
+```

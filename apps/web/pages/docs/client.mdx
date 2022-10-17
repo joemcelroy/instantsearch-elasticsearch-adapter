@@ -1,0 +1,43 @@
+---
+title: Browser Client
+---
+
+### Installation
+
+It is available as `@instantsearch-elasticsearch-api/client` on npm.
+
+```sh
+npm install @instantsearch-elasticsearch-api/client
+# or
+yarn add @instantsearch-elasticsearch-api/client
+```
+
+Then import it in your project:
+
+```js
+import Client from "@instantsearch-elasticsearch-api/client";
+```
+
+### Usage
+
+Below is a simple example of how to use the client to use React Instantsearch with Instantsearch Elasticsearch adapter.
+
+Node API route has been setup under `/api/search` and the client is used to fetch the results from the API.
+
+```tsx
+const searchClient = new Client({
+  // the url of your instantsearch-elasticsearch-adapter API endpoint
+  url: "/api/search",
+});
+
+export default function Web() {
+  return (
+    <div className="ais-InstantSearch">
+      <InstantSearch indexName="imdb_movies" searchClient={searchClient}>
+        <SearchBox />
+        <Hits />
+      </InstantSearch>
+    </div>
+  );
+}
+```

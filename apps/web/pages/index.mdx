@@ -1,0 +1,27 @@
+import Image from "next/image";
+
+# Overview
+
+InstantSearch Elasticsearch Adapter is a javascript library that lets you use Elasticsearch with Algolia's Instantsearch, a javascript library for building performant and instant search experiences.
+
+## How it works
+
+![overview](../public/ises-overview.png)
+
+The adapter provides two public libraries:
+
+- [Node API](./reference/api) which transforms instantsearch requests into Elasticsearch queries
+- [Browser client](./reference/client) that integrates with the instantsearch library and the Adapter's node API
+
+With the adapter, you'll be able to use instantsearch frameworks to quickly build great search experiences with **Elasticsearch**.
+
+- [Instantsearch.js](https://github.com/algolia/instantsearch.js)
+- [React InstantSearch](https://github.com/algolia/react-instantsearch)
+- [Vue InstantSearch](https://github.com/algolia/vue-instantsearch)
+- [Angular InstantSearch](https://github.com/algolia/angular-instantsearch)
+
+#### IMDB Movies Example
+
+- [Demo site](/demo)
+- [Frontend Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/demo.tsx)
+- [API Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/api/search.tsx)

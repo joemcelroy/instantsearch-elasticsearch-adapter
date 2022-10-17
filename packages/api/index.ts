@@ -30,7 +30,7 @@ export interface SearchSettingsConfig {
 }
 
 export interface ClientConfig {
-  connection: ClientConfigConnection;
+  connection: ClientConfigConnection | Transporter;
   search_settings: SearchSettingsConfig;
 }
 
@@ -47,8 +47,13 @@ export interface RequestOptions {
   getBaseFilters?: () => ElasticsearchQuery[];
 }
 
-class Transporter {
-  constructor(private config: ClientConfigConnection) {}
+export interface Transporter {
+  config: ClientConfigConnection;
+  msearch: (requests: SearchRequest[]) => Promise<ElasticsearchResponseBody[]>;
+}
+
+class ESTransporter implements Transporter {
+  constructor(public config: ClientConfigConnection) {}
 
   async msearch(
     requests: SearchRequest[]
@@ -83,7 +88,10 @@ class Client {
   transporter: Transporter;
 
   constructor(private config: ClientConfig) {
-    this.transporter = new Transporter(config.connection);
+    this.transporter =
+      "msearch" in config.connection
+        ? config.connection
+        : new ESTransporter(config.connection);
   }
 
   private async performSearch(requests: SearchRequest[]) {
@@ -91,10 +99,8 @@ class Client {
     return responses;
   }
 
-  async handleRequest(req: any, requestOptions?: RequestOptions) {
-    const instantsearchRequests = JSON.parse(
-      req.body
-    ) as AlgoliaMultipleQueriesQuery[];
+  async handleRequest(body: any, requestOptions?: RequestOptions) {
+    const instantsearchRequests = body as AlgoliaMultipleQueriesQuery[];
 
     const instantsearchResponses = this.handleInstantSearchRequests(
       instantsearchRequests,
@@ -126,11 +132,7 @@ class Client {
     const instantsearchResponses = esResponses.map((response, i) => {
       // @ts-ignore
       if (instantsearchRequests[i].params?.facetName) {
-        return transformFacetValuesResponse(
-          response,
-          instantsearchRequests[i],
-          this.config
-        );
+        return transformFacetValuesResponse(response, instantsearchRequests[i]);
       }
       return transformResponse(
         response,
@@ -145,4 +147,8 @@ class Client {
   }
 }
 
-export default Client;
+const createClient = (config: ClientConfig) => {
+  return new Client(config);
+};
+
+export default createClient;

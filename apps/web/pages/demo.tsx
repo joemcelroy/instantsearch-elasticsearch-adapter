@@ -1,7 +1,7 @@
 import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements } from 'react-instantsearch-dom';
 import Client from '@instantsearch-elasticsearch-adapter/client'
 
-const searchClient = new Client({
+const searchClient = Client({
   url: '/api/search',
 });
 

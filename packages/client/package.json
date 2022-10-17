@@ -1,11 +1,17 @@
 {
   "name": "@instantsearch-elasticsearch-adapter/client",
   "version": "0.0.0",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "license": "MIT",
   "scripts": {
     "lint": "eslint *.ts*",
+    "build": "tsup",
+    "dev": "npm run build --watch",
     "test": "jest"
   },
   "devDependencies": {
@@ -18,6 +24,7 @@
     "node-fetch": "^2.6.6",
     "ts-jest": "29.0.3",
     "tsconfig": "*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "tsup": "^6.3.0"
   }
 }

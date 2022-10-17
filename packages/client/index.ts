@@ -1,5 +1,3 @@
-import fetch from "cross-fetch";
-
 interface InstantSearchElasticsearchAdapterConfig {
   url: string;
 }
@@ -46,4 +44,8 @@ class InstantSearchElasticsearchAdapter {
   }
 }
 
-export default InstantSearchElasticsearchAdapter;
+const createClient = (config: InstantSearchElasticsearchAdapterConfig) => {
+  return new InstantSearchElasticsearchAdapter(config);
+};
+
+export default createClient;
