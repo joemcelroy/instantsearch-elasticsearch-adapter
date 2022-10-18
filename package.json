@@ -15,12 +15,14 @@
   },
   "devDependencies": {
     "eslint-config-custom": "*",
+    "postcss": "latest",
     "prettier": "latest",
-    "turbo": "latest",
-    "postcss": "latest"
+    "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@changesets/cli": "^2.25.0"
+  }
 }

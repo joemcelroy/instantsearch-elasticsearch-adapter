@@ -13,5 +13,12 @@ export default defineConfig([
     ...commonConfig,
     format: ["esm"],
     outDir: "dist",
-  }
+  },
+  {
+    entry: ["index.ts"],
+    ...commonConfig,
+    format: ["iife"],
+    outDir: "dist/umd",
+    globalName: "ElasticsearchClient",
+  },
 ]);
