@@ -2,6 +2,11 @@
   "name": "@ises/api",
   "version": "1.0.0",
   "main": "./dist/index.js",
+  "description": "Use Elasticsearch for your Instantsearch apps. Adapter that transforms instantsearch requests into Elasticsearch queries.",
+  "repository": "https://github.com/joemcelroy/instantsearch-elasticsearch-adapter",
+  "bugs": "https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/issues",
+  "homepage": "https://ises.vercel.app",
+  "license": "MIT",
   "files": [
     "dist/"
   ],
@@ -10,7 +15,6 @@
     ".": "./dist/index.js"
   },
   "types": "./dist/index.d.ts",
-  "license": "MIT",
   "scripts": {
     "lint": "eslint *.ts*",
     "build": "tsup",

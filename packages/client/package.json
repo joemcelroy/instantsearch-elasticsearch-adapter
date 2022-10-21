@@ -1,5 +1,9 @@
 {
   "name": "@ises/client",
+  "description": "Use Elasticsearch for your Instantsearch apps. Adapter that transforms instantsearch requests into Elasticsearch queries.",
+  "repository": "https://github.com/joemcelroy/instantsearch-elasticsearch-adapter",
+  "bugs": "https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/issues",
+  "homepage": "https://ises.vercel.app",
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",

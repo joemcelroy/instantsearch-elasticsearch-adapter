@@ -11,5 +11,17 @@
   "examples": {
     "title": "Examples",
     "type": "page"
+  },
+  "demo": {
+    "title": "Demo",
+    "type": "page",
+    "href": "http://ises.vercel.app/demo",
+    "newWindow": false
+  },
+  "discord": {
+    "title": "Discord",
+    "type": "page",
+    "href": "https://discord.gg/a8fanMMy",
+    "newWindow": true
   }
 }

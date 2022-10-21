@@ -4,7 +4,7 @@ Use Instantsearch with Elasticsearch & ISES
 
 InstantSearch Elasticsearch Adapter is a javascript library that lets you use Elasticsearch with Algolia's Instantsearch, a javascript library for building performant and instant search experiences.
 
-Here is an example of UI you can build with this adapter and Elasticsearch: [INSERT LINK]()
+Here is an example of UI you can build with this adapter and Elasticsearch: [IMDB Movies Demo](https://ises.vercel.app/demo)
 
 With the adapter in this repository, you'll be able to use [Instantsearch.js](https://github.com/algolia/instantsearch.js) plus:
 
@@ -110,6 +110,6 @@ Demo site running Instantsearch React and Elasticsearch: [https://ises.vercel.ap
 - [Frontend Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/demo.tsx)
 - [API Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/api/search.tsx)
 
-## Bugs?
+## Found a Bug?
 
-Not all features of Instantsearch is supported so you may encounter issues. If you do encounter issues or missing features, please submit an issue!
+Not all features of Instantsearch is supported so you may encounter issues. If you do encounter issues or missing features, please [submit an issue](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/issues)!
