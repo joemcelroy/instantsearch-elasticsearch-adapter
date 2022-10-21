@@ -10,16 +10,17 @@ export default {
   floatTOC: true,
   footerText: `MIT ${new Date().getFullYear()} © Joseph McElroy.`,
   footerEditLink: `Edit this page on GitHub`,
+  chat: {
+    link: "https://turborepo.org/discord",
+  },
   logo: (
-    <>
-      <span>Instantsearch Elasticsearch Adapter</span>
-    </>
+      <h2 className="font-bold">ISES: Instantsearch Elasticsearch Adapter</h2>
   ),
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="An adapter to use Elasticsearch with Instantsearch UI library" />
-      <meta name="og:title" content="Enables Elasticsearch with Instantsearch UI library" />
+      <meta name="og:title" content="Use Instantsearch UI library with Elasticsearch" />
     </>
   ),
 }

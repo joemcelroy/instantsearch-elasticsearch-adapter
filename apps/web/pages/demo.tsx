@@ -1,5 +1,5 @@
 import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements } from 'react-instantsearch-dom';
-import Client from '@instantsearch-elasticsearch-adapter/client'
+import Client from '@ises/client'
 
 const searchClient = Client({
   url: '/api/search',
@@ -8,6 +8,7 @@ const searchClient = Client({
 const hitView = (props: any) => {
   return (
     <div>
+      <img src={props.hit.poster} className="hit-image" />
       <h2><Highlight hit={props.hit} attribute="title" /></h2>
       <br />
       

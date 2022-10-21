@@ -595,7 +595,7 @@ a[class^='ais-'] {
       color: #a5abc4;
       background-color: #fff; }
   .ais-Pagination-item--selected .ais-Pagination-link {
-    color: #fff;
+    color: #777;
     background-color: #0096db;
     border-color: #0096db; }
     .ais-Pagination-item--selected .ais-Pagination-link:hover, .ais-Pagination-item--selected .ais-Pagination-link:focus {
@@ -1916,3 +1916,11 @@ a[class^='ais-'] {
       font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss06" 1 !important;
     }
     
+
+.ais-Hits-item h2 {
+  @apply text-2xl
+} 
+
+.hit-image {
+  @apply mb-4 max-h-72;
+}

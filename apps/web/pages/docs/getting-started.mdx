@@ -28,7 +28,7 @@ and follow the instructions.
 Next we need to install the dependencies for this project:
 
 ```sh
-  yarn add @instantsearch-elasticsearch-adapter/client @instantsearch-elasticsearch-adapter/api react-instantsearch-dom
+  yarn add @ises/client @ises/api react-instantsearch-dom
 ```
 
 ## Setup the Node API
@@ -36,7 +36,7 @@ Next we need to install the dependencies for this project:
 create a new file in the `pages/api` directory called `search.js` and add the following code:
 
 ```js
-import Client from "@instantsearch-elasticsearch-adapter/api";
+import Client from "@ises/api";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const apiConfig = {
@@ -76,7 +76,7 @@ First, we need to create a new file in the `pages` directory called `search.js` 
 
 ```js
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
-import createClient from "@instantsearch-elasticsearch-adapter/client";
+import createClient from "@ises/client";
 
 const searchClient = createClient({
   url: "/api/search",

@@ -1,4 +1,4 @@
-// const withTM = require("next-transpile-modules")(["@instantsearch-elasticsearch-adapter/client", "@instantsearch-elasticsearch-adapter/api"]);
+// const withTM = require("next-transpile-modules")(["@ises/client", "@ises/api"]);
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.js',

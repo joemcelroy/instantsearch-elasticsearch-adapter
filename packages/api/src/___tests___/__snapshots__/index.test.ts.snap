@@ -839,8 +839,8 @@ exports[`API facets non dynamic facets 1`] = `
       "nbHits": 4162,
       "nbPages": 209,
       "page": 0,
-      "params": "",
-      "processingTimeMS": 0,
+      "params": "facets=type&facets=actors&facets=imdbrating&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 5,
       "query": "",
       "renderingContent": {
         "facetOrdering": {
@@ -873,6 +873,12 @@ exports[`API facets non dynamic facets 1`] = `
 }
 `;
 
+exports[`API facets non dynamic facets: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":[]}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+"
+`;
+
 exports[`API facets numeric facets 1`] = `
 {
   "results": [
@@ -886,20 +892,8 @@ exports[`API facets numeric facets 1`] = `
       "exhaustiveNbHits": true,
       "exhaustiveTypo": true,
       "facets": {
-        "actors": {
-          "Bob Gunton": 1,
-          "Morgan Freeman": 1,
-          "Tim Robbins": 1,
-          "William Sadler": 1,
-        },
         "imdbrating": {
           "9.300000190734863": 1,
-        },
-        "rated": {
-          "R": 1,
-        },
-        "type": {
-          "movie": 1,
         },
       },
       "facets_stats": {
@@ -961,30 +955,18 @@ exports[`API facets numeric facets 1`] = `
       "nbHits": 1,
       "nbPages": 1,
       "page": 0,
-      "params": "",
-      "processingTimeMS": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
       "query": "shawshank",
       "renderingContent": {
         "facetOrdering": {
           "facets": {
             "order": [
-              "type",
-              "actors",
-              "rated",
               "imdbrating",
             ],
           },
           "values": {
-            "actors": {
-              "sortRemainingBy": "count",
-            },
             "imdbrating": {
-              "sortRemainingBy": "count",
-            },
-            "rated": {
-              "sortRemainingBy": "count",
-            },
-            "type": {
               "sortRemainingBy": "count",
             },
           },
@@ -1057,30 +1039,18 @@ exports[`API facets numeric facets 1`] = `
       "nbHits": 1,
       "nbPages": 1,
       "page": 0,
-      "params": "",
-      "processingTimeMS": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=type&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
       "query": "shawshank",
       "renderingContent": {
         "facetOrdering": {
           "facets": {
             "order": [
-              "type",
-              "actors",
-              "rated",
               "imdbrating",
             ],
           },
           "values": {
-            "actors": {
-              "sortRemainingBy": "count",
-            },
             "imdbrating": {
-              "sortRemainingBy": "count",
-            },
-            "rated": {
-              "sortRemainingBy": "count",
-            },
-            "type": {
               "sortRemainingBy": "count",
             },
           },
@@ -1089,6 +1059,14 @@ exports[`API facets numeric facets 1`] = `
     },
   ],
 }
+`;
+
+exports[`API facets numeric facets: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"type":"movie"}}]}}],"must":{"combined_fields":{"query":"shawshank","fields":["title","actors"]}}}},"size":20,"from":0,"_source":{"includes":["title","actors"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}}},"query":{"bool":{"filter":[],"must":{"combined_fields":{"query":"shawshank","fields":["title","actors"]}}}},"size":1,"from":0,"_source":{"includes":["title","actors"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+"
 `;
 
 exports[`API facets numeric filters 1`] = `
@@ -1122,7 +1100,7 @@ exports[`API facets numeric filters 1`] = `
       "nbHits": 0,
       "nbPages": 0,
       "page": 0,
-      "params": "",
+      "params": "facets=type&facets=actors&facets=imdbrating&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&numericFilters=imdbrating%3E%3D90&page=0&query=&tagFilters=",
       "processingTimeMS": 0,
       "query": "",
       "renderingContent": {
@@ -1970,8 +1948,8 @@ exports[`API facets numeric filters 1`] = `
       "nbHits": 4162,
       "nbPages": Infinity,
       "page": 0,
-      "params": "",
-      "processingTimeMS": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=imdbrating&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=0&maxValuesPerFacet=10&page=0&query=",
+      "processingTimeMS": 2,
       "query": "",
       "renderingContent": {
         "facetOrdering": {
@@ -2002,6 +1980,14 @@ exports[`API facets numeric filters 1`] = `
     },
   ],
 }
+`;
+
+exports[`API facets numeric filters: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"range":{"imdbrating":{"gte":"90"}}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"index":"imdb_movies"}
+{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":[]}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+"
 `;
 
 exports[`API should work 1`] = `
@@ -2082,8 +2068,8 @@ exports[`API should work 1`] = `
       "nbHits": 1,
       "nbPages": 1,
       "page": 0,
-      "params": "",
-      "processingTimeMS": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
       "query": "shawshank",
       "renderingContent": {
         "facetOrdering": {
@@ -2174,8 +2160,8 @@ exports[`API should work 1`] = `
       "nbHits": 1,
       "nbPages": 1,
       "page": 0,
-      "params": "",
-      "processingTimeMS": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=type&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
       "query": "shawshank",
       "renderingContent": {
         "facetOrdering": {
@@ -2202,4 +2188,12 @@ exports[`API should work 1`] = `
     },
   ],
 }
+`;
+
+exports[`API should work: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"rated":{"terms":{"field":"rated","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"type":"movie"}}]}}],"must":{"combined_fields":{"query":"shawshank","fields":["title","actors","query"]}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}}},"query":{"bool":{"filter":[],"must":{"combined_fields":{"query":"shawshank","fields":["title","actors","query"]}}}},"size":1,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+"
 `;

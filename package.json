@@ -1,5 +1,5 @@
 {
-  "name": "instantsearch-elasticsearch-adapter",
+  "name": "ises",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -11,7 +11,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
     "eslint-config-custom": "*",

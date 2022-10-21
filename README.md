@@ -1,4 +1,6 @@
-# Instantsearch Elasticsearch Adapter
+# ISES: Instantsearch Elasticsearch Adapter
+
+Use Instantsearch with Elasticsearch & ISES
 
 InstantSearch Elasticsearch Adapter is a javascript library that lets you use Elasticsearch with Algolia's Instantsearch, a javascript library for building performant and instant search experiences.
 
@@ -6,10 +8,10 @@ Here is an example of UI you can build with this adapter and Elasticsearch: [INS
 
 With the adapter in this repository, you'll be able to use [Instantsearch.js](https://github.com/algolia/instantsearch.js) plus:
 
-- [React InstantSearch][react-instantsearch-github]
-- [Vue InstantSearch][vue-instantsearch-github]
-- [Angular InstantSearch][instantsearch-angular-github]
-- [React InstantSearch Native][react-instantsearch-github]
+- [Instantsearch.js](https://github.com/algolia/instantsearch.js)
+- [React InstantSearch](https://github.com/algolia/react-instantsearch)
+- [Vue InstantSearch](https://github.com/algolia/vue-instantsearch)
+- [Angular InstantSearch](https://github.com/algolia/angular-instantsearch)
 
 to quickly build great search experiences with Elasticsearch.
 
@@ -30,27 +32,29 @@ Below we assume you have a Next JS site setup already.
 
 [Edit in CodeSandbox]()
 
-#### Install dependencies
+### How you can use it
 
-React InstantSearch is available on the npm registry. It relies on @instantsearch-elasticsearch-adapter/client to communicate with the node API.
+Its very easy to integrate it in your app, once you have indexed your data in Elasticsearch, you can use the adapter and instantsearch to query your data and display it in your app.
+
+### Install dependencies
+
+React InstantSearch is available on the npm registry. It relies on @ises/client to communicate with the node API.
 
 ```
-yarn add @instantsearch-elasticsearch-adapter/api @instantsearch-elasticsearch-adapter/client react-instantsearch-dom
+yarn add @ises/api @ises/client react-instantsearch-dom
 # OR
-npm install @instantsearch-elasticsearch-adapter/api @instantsearch-elasticsearch-adapter/client react-instantsearch-dom
+npm install @ises/api @ises/client react-instantsearch-dom
 ```
 
-#### Setup the API
+#### API Setup
 
-This transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
+This creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
 
-```typescript
-// pages/api/search.ts
-
-import Client from "@instantsearch-elasticsearch-adapter/api";
+```ts
+import Client from "@ises/api";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const client = new Client({
+const client = Client({
   connection: {
     host: "<elasticsearch-host>",
     apiKey: "<api-key>", // optional
@@ -63,34 +67,28 @@ const client = new Client({
   },
 });
 
+// example API handler for Next.js
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const results = await client.handleRequest(req);
+  const body = JSON.parse(req.body);
+  const results = await client.handleRequest(body);
   res.send(results);
 }
 ```
 
-##### Other examples:
-
-- [Express JS]()
-- [Cloudflare Workers]()
-- [AWS Lambda]()
-
-#### Setup the Frontend
+#### Frontend Setup
 
 Using InstantSearch with Instantsearch Elasticsearch Adapter is as simple as adding this JavaScript code to your page:
 
-```javascript
-// pages/index.tsx
-
+```tsx
 import React from "react";
 import ReactDOM from "react-dom";
-import Client from "@instantsearch-elasticsearch-adapter/client";
+import Client from "@ises/client";
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
 
-const searchClient = new Client({
+const searchClient = Client({
   url: "/api/search", // API url
 });
 
@@ -104,37 +102,14 @@ const App = () => (
 export default App;
 ```
 
-##### Other examples:
+#### IMDB Movies Example
 
-- [Instantsearch.js]()
+Demo site running Instantsearch React and Elasticsearch: [https://ises.vercel.app/demo](https://ises.vercel.app/demo)
 
-### Documentation
+- [Demo site](/demo)
+- [Frontend Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/demo.tsx)
+- [API Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/api/search.tsx)
 
-Tweaking Relevance
+## Bugs?
 
-- Requires fields which are
-  Facets
-- Requires keyword field
-  Highlighting
-  Sorting
-
-Codesandbox example
-
-- Whats Supported
-
-  - Results
-  - Facets & Facet Filters
-  -
-
-- Whats missing
-  - Autocomplete
-  - GEO search
-  - Facets
-    - Hierarchical Facet
-  - Elasticsearch Nested field support
-  - Algolia tag Filters
-  - Grouping
-    Relevance
-    - synonym Support
-    - Query Rules Support
-    -
+Not all features of Instantsearch is supported so you may encounter issues. If you do encounter issues or missing features, please submit an issue!

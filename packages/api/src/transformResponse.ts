@@ -101,7 +101,11 @@ const getRenderingContent = (config: SearchSettingsConfig) => {
   return {
     renderingContent: {
       facetOrdering: {
-        facets: { order: config.facet_attributes },
+        facets: {
+          order: config.facet_attributes?.map((facet) => {
+            return typeof facet === "string" ? facet : facet.attribute;
+          }),
+        },
         values: config.facet_attributes?.reduce<
           Record<string, { sortRemainingBy: "count" }>
         >((sum, facet) => {

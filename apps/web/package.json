@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@instantsearch-elasticsearch-adapter/api": "*",
-    "@instantsearch-elasticsearch-adapter/client": "*",
+    "@ises/api": "*",
+    "@ises/client": "*",
     "algoliasearch": "^4.14.2",
     "next": "12.3.1",
     "nextra": "alpha",

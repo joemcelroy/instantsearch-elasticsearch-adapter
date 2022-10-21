@@ -4,16 +4,18 @@ title: Node API
 
 ### Installation
 
-It is available as `@instantsearch-elasticsearch-api/api` on npm.
+It is available as `@ises/api` on npm.
 
 ```sh
-npm install @instantsearch-elasticsearch-api/api
+npm install @ises/api
+# OR
+yarn add @ises/api
 ```
 
 Then import it in your project:
 
 ```js
-import Client from "@instantsearch-elasticsearch-api/api";
+import Client from "@ises/api";
 ```
 
 ### Usage
@@ -23,7 +25,7 @@ Node API handles incoming instantsearch requests, transforms them into Elasticse
 The API is built in a way to simplify the integration with multiple node server frameworks.
 
 ```typescript
-const ises = new Client({
+const ises = Client({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==",
@@ -83,7 +85,7 @@ class MyTransporter {
   }
 }
 
-const ises = new Client({
+const ises = Client({
   connection: new MyTransporter(),
   ...
 });

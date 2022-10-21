@@ -1,28 +1,24 @@
-import Client, {
-  FacetAttribute,
-} from "@instantsearch-elasticsearch-adapter/api";
+import Client, { FacetAttribute } from "@ises/api";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const apiConfig = {
+const apiClient = Client({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==",
   },
   search_settings: {
     highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors", "query"],
-    result_attributes: ["title", "actors", "query"],
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors", "poster"],
     facet_attributes: [
       "type",
-      { attribute: "actors", field: "actors.keyword" } as FacetAttribute,
+      { attribute: "actors", field: "actors.keyword" },
       "rated",
-      { attribute: "imdbrating", type: "numeric" } as FacetAttribute,
-      { attribute: "metascore", type: "numeric" } as FacetAttribute,
+      { attribute: "imdbrating", type: "numeric" },
+      { attribute: "metascore", type: "numeric" },
     ],
   },
-};
-
-const apiClient = Client(apiConfig);
+});
 
 export default async function handler(
   req: NextApiRequest,

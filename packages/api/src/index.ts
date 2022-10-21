@@ -11,8 +11,8 @@ import {
 
 export type FacetFieldConfig = {
   attribute: string;
-  field: string | undefined;
-  type: "numeric" | "string" | "date" | undefined;
+  field?: string;
+  type?: "numeric" | "string" | "date";
 };
 
 export interface ClientConfigConnection {
@@ -62,7 +62,6 @@ class ESTransporter implements Transporter {
     const response = await fetch(`${this.config.host}/_msearch`, {
       headers: {
         authorization: `ApiKey ${this.config.apiKey}`,
-        "content-type": "application/json",
       },
       body: requests
         .reduce<string[]>(

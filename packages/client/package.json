@@ -1,6 +1,6 @@
 {
-  "name": "@instantsearch-elasticsearch-adapter/client",
-  "version": "0.0.0",
+  "name": "@ises/client",
+  "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

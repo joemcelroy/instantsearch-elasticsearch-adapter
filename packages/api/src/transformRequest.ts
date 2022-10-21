@@ -1,10 +1,10 @@
-import { RequestOptions, SearchSettingsConfig } from ".";
+import { FacetAttribute, RequestOptions, SearchSettingsConfig } from ".";
 import {
   AlgoliaMultipleQueriesQuery,
   ElasticsearchQuery,
   ElasticsearchSearchRequest,
 } from "./types";
-import { getFacetField, getFacetFieldType } from "./utils";
+import { getFacetAttribute, getFacetField, getFacetFieldType } from "./utils";
 
 export const createRegexQuery = (queryString: string) => {
   let query = queryString.replace(
@@ -156,7 +156,7 @@ export const getAggs = (
       },
     };
   } else if (Array.isArray(facets)) {
-    const facetAttributes =
+    const facetAttributes: FacetAttribute[] =
       facets[0] === "*" ? config.facet_attributes || [] : facets;
     return (
       facetAttributes.reduce((sum, facet) => {
@@ -165,16 +165,20 @@ export const getAggs = (
           facet
         );
         const field = getFacetField(config.facet_attributes || [], facet);
+        const attributeName = getFacetAttribute(
+          config.facet_attributes || [],
+          facet
+        );
 
         if (fieldType === "numeric") {
           return {
             ...sum,
-            [field + "$_stats"]: {
+            [attributeName + "$_stats"]: {
               stats: {
                 field,
               },
             },
-            [field + "$_entries"]: {
+            [attributeName + "$_entries"]: {
               terms: {
                 field,
                 size: maxFacetSize,
@@ -185,7 +189,7 @@ export const getAggs = (
 
         return {
           ...sum,
-          [facet]: {
+          [attributeName]: {
             terms: {
               field: field,
               size: maxFacetSize,
@@ -197,15 +201,19 @@ export const getAggs = (
   } else if (typeof facets === "string") {
     const fieldType = getFacetFieldType(config.facet_attributes || [], facets);
     const field = getFacetField(config.facet_attributes || [], facets);
+    const attributeName = getFacetAttribute(
+      config.facet_attributes || [],
+      facets
+    );
 
     if (fieldType === "numeric") {
       return {
-        [field + "$_stats"]: {
+        [attributeName + "$_stats"]: {
           stats: {
             field,
           },
         },
-        [field + "$_entries"]: {
+        [attributeName + "$_entries"]: {
           terms: {
             field,
             size: maxFacetSize,
@@ -215,7 +223,7 @@ export const getAggs = (
     }
 
     return {
-      [field]: {
+      [attributeName]: {
         terms: {
           field: field,
           size: maxFacetSize,

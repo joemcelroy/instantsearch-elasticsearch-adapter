@@ -12,7 +12,7 @@
         "args": [
              "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
         ],
-        "cwd": "${workspaceRoot}/packages/instantsearch-elasticsearch-api",
+        "cwd": "${workspaceRoot}/packages/api",
         "env": {
             "NODE_ENV": "test"
         },

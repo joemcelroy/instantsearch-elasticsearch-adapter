@@ -9,16 +9,16 @@ const commonConfig = {
 };
 export default defineConfig([
   {
-    entry: ["index.ts"],
+    entry: ["src/index.ts"],
     ...commonConfig,
     format: ["esm"],
     outDir: "dist",
   },
   {
-    entry: ["index.ts"],
+    entry: ["src/index.ts"],
     ...commonConfig,
     format: ["iife"],
     outDir: "dist/umd",
-    globalName: "ElasticsearchClient",
+    globalName: "ISESClient",
   },
 ]);
