@@ -1,3 +1,4 @@
 {
-  "cloudflare-workers": "Cloudflare Worker"
+  "cloudflare-workers": "Cloudflare Worker",
+  "sandbox-template": "CodeSandbox Template"
 }

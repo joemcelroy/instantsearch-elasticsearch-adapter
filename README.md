@@ -24,17 +24,15 @@ The adapter provides two public libraries:
 - A node API which transforms instantsearch requests into Elasticsearch queries
 - a lightweight frontend client that integrates with the instantsearch library and the Adapter's node API
 
+[Edit in CodeSandbox](https://codesandbox.io/s/ises-template-k4tz09)
+
 ## Get started
 
-Below we are using Next JS and React instantsearch as an example but you can integrate the API and frontend on any framework you use today.
+Follow the [getting started guide](https://ises.vercel.app/docs//getting-started) or [Edit in CodeSandbox](https://codesandbox.io/s/ises-template-k4tz09)
 
-Below we assume you have a Next JS site setup already.
+### Easy Integration
 
-[Edit in CodeSandbox]()
-
-### How you can use it
-
-Its very easy to integrate it in your app, once you have indexed your data in Elasticsearch, you can use the adapter and instantsearch to query your data and display it in your app.
+Its very easy to integrate it in your app, once you have indexed your data in Elasticsearch, you can use the adapter and instantsearch of your choice to query your data and display it in your website / app.
 
 ### Install dependencies
 
@@ -106,7 +104,7 @@ export default App;
 
 Demo site running Instantsearch React and Elasticsearch: [https://ises.vercel.app/demo](https://ises.vercel.app/demo)
 
-- [Demo site](/demo)
+- [Demo site](https://ises.vercel.app/demo)
 - [Frontend Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/demo.tsx)
 - [API Codebase](https://github.com/joemcelroy/instantsearch-elasticsearch-adapter/tree/main/apps/web/pages/api/search.tsx)
 
