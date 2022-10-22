@@ -14,10 +14,9 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint *.ts*",
+    "lint": "eslint src/*.ts*",
     "build": "tsup",
-    "dev": "npm run build --watch",
-    "test": "jest"
+    "dev": "npm run build --watch"
   },
   "devDependencies": {
     "@elastic/elasticsearch": "8.4.0",
@@ -31,5 +30,8 @@
     "tsconfig": "*",
     "typescript": "^4.5.2",
     "tsup": "^6.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

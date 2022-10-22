@@ -3,85 +3,8 @@ import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from "@algol
 import transformResponse, {
   transformFacetValuesResponse,
 } from "./transformResponse";
-import {
-  ElasticsearchSearchRequest,
-  ElasticsearchResponseBody,
-  ElasticsearchQuery,
-} from "./types";
-
-export type FacetFieldConfig = {
-  attribute: string;
-  field?: string;
-  type?: "numeric" | "string" | "date";
-};
-
-export interface ClientConfigConnection {
-  host: string;
-  apiKey: string;
-}
-
-export type FacetAttribute = string | FacetFieldConfig;
-
-export interface SearchSettingsConfig {
-  search_attributes: Array<string>;
-  facet_attributes?: FacetAttribute[];
-  result_attributes: string[];
-  highlight_attributes?: string[];
-}
-
-export interface ClientConfig {
-  connection: ClientConfigConnection | Transporter;
-  search_settings: SearchSettingsConfig;
-}
-
-type SearchRequest = {
-  body: ElasticsearchSearchRequest;
-  indexName: string;
-};
-
-export interface RequestOptions {
-  getQuery?: (
-    query: string,
-    search_attributes: string[]
-  ) => ElasticsearchQuery | ElasticsearchQuery[];
-  getBaseFilters?: () => ElasticsearchQuery[];
-}
-
-export interface Transporter {
-  config: ClientConfigConnection;
-  msearch: (requests: SearchRequest[]) => Promise<ElasticsearchResponseBody[]>;
-}
-
-class ESTransporter implements Transporter {
-  constructor(public config: ClientConfigConnection) {}
-
-  async msearch(
-    requests: SearchRequest[]
-  ): Promise<ElasticsearchResponseBody[]> {
-    // @ts-ignore
-    const response = await fetch(`${this.config.host}/_msearch`, {
-      headers: {
-        authorization: `ApiKey ${this.config.apiKey}`,
-      },
-      body: requests
-        .reduce<string[]>(
-          (sum, request) => [
-            ...sum,
-            JSON.stringify({ index: request.indexName }),
-            "\n",
-            JSON.stringify(request.body),
-            "\n",
-          ],
-          []
-        )
-        .join(""),
-      method: "POST",
-    });
-
-    const responses = await response.json();
-    return responses.responses;
-  }
-}
+import { ClientConfig, SearchRequest, RequestOptions } from "./types";
+import { ESTransporter, Transporter } from "./Transporter";
 
 class Client {
   transporter: Transporter;

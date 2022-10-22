@@ -1,4 +1,4 @@
-import { FacetAttribute, FacetFieldConfig } from ".";
+import { FacetAttribute, FacetFieldConfig } from "./types";
 
 export const createRegexQuery = (queryString: string) => {
   let query = queryString.replace(

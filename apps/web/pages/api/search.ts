@@ -1,4 +1,4 @@
-import Client, { FacetAttribute } from "@ises/api";
+import Client from "@ises/api";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const apiClient = Client({

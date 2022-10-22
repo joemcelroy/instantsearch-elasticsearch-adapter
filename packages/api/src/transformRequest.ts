@@ -1,4 +1,4 @@
-import { FacetAttribute, RequestOptions, SearchSettingsConfig } from ".";
+import { FacetAttribute, RequestOptions, SearchSettingsConfig } from "./types";
 import {
   AlgoliaMultipleQueriesQuery,
   ElasticsearchQuery,

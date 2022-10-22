@@ -1,4 +1,4 @@
-import { ClientConfig, SearchSettingsConfig } from ".";
+import { SearchSettingsConfig } from "./types";
 import { getHighlightFields, highlightTerm } from "./highlightUtils";
 import { stringify } from "querystring";
 import {

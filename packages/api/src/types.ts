@@ -5,6 +5,7 @@ import type {
   SearchResponseBody as ElasticsearchBaseResponseBody,
   SearchHit as ElasticsearchBaseHit,
 } from "@elastic/elasticsearch/lib/api/types";
+import { Transporter } from "./Transporter";
 
 type ElasticsearchHitDocument = Record<string, unknown>;
 type ElasticsearchHit = ElasticsearchBaseHit<ElasticsearchHitDocument>;
@@ -13,6 +14,44 @@ type ElasticsearchResponseBody =
   ElasticsearchBaseResponseBody<ElasticsearchHitDocument>;
 
 type ElasticsearchQuery = ElasticsearchQueryDslQuery;
+
+export type FacetFieldConfig = {
+  attribute: string;
+  field?: string;
+  type?: "numeric" | "string" | "date";
+};
+
+export interface ClientConfigConnection {
+  host: string;
+  apiKey?: string;
+}
+
+export type FacetAttribute = string | FacetFieldConfig;
+
+export interface SearchSettingsConfig {
+  search_attributes: Array<string>;
+  facet_attributes?: FacetAttribute[];
+  result_attributes: string[];
+  highlight_attributes?: string[];
+}
+
+export interface ClientConfig {
+  connection: ClientConfigConnection | Transporter;
+  search_settings: SearchSettingsConfig;
+}
+
+export type SearchRequest = {
+  body: ElasticsearchSearchRequest;
+  indexName: string;
+};
+
+export interface RequestOptions {
+  getQuery?: (
+    query: string,
+    search_attributes: string[]
+  ) => ElasticsearchQuery | ElasticsearchQuery[];
+  getBaseFilters?: () => ElasticsearchQuery[];
+}
 
 export type {
   AlgoliaMultipleQueriesQuery,
