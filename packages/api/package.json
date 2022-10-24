@@ -1,6 +1,6 @@
 {
   "name": "@ises/api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "./dist/index.js",
   "description": "Use Elasticsearch for your Instantsearch apps. Adapter that transforms instantsearch requests into Elasticsearch queries.",
   "repository": "https://github.com/joemcelroy/instantsearch-elasticsearch-adapter",

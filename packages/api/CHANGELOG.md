@@ -1,5 +1,11 @@
 # @ises/api
 
+## 1.1.1
+
+### Patch Changes
+
+- use highlight attribute
+
 ## 1.1.0
 
 ### Minor Changes
