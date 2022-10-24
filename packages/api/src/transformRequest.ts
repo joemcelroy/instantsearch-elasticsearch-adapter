@@ -279,7 +279,7 @@ const getResultsSize = (
   };
 };
 
-const getHitFields = (
+export const getHitFields = (
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig
 ) => {
@@ -294,7 +294,7 @@ const getHitFields = (
   };
 };
 
-const getHighlightFields = (
+export const getHighlightFields = (
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig
 ) => {
@@ -303,8 +303,8 @@ const getHighlightFields = (
   // ignoring attributesToHighlight for now
   return {
     highlight: {
-      pre_tags: ["<ais-highlight-0000000000>"],
-      post_tags: ["</ais-highlight-0000000000>"],
+      pre_tags: [params.highlightPreTag || "<ais-highlight-0000000000>"],
+      post_tags: [params.highlightPostTag || "</ais-highlight-0000000000>"],
       fields:
         config.highlight_attributes?.reduce((sum, field) => {
           return {

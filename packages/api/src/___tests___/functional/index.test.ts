@@ -1,10 +1,14 @@
-import Client from "../index";
+import Client from "@ises/api";
 import {
   DisjunctiveExampleRequest,
   nonDynamicFacetRequest,
   NumericFiltersExampleRequest,
-} from "./mocks/AlgoliaRequests";
-import { AlgoliaMultipleQueriesQuery } from "../types";
+} from "../mocks/AlgoliaRequests";
+import type {
+  AlgoliaMultipleQueriesQuery,
+  ElasticsearchResponseBody,
+  Transporter,
+} from "@ises/api";
 
 import nock from "nock";
 import {
@@ -12,12 +16,10 @@ import {
   HitsResponseWithFacetFilterAndNumericFacet,
   HitsResponseWithFacetFilterAndNumericFacetAndNumericFilter,
   HitsWithNoQueryOrFiltersResponse,
-} from "./mocks/ElasticsearchResponses";
+} from "../mocks/ElasticsearchResponses";
 
-// nock.recorder.rec();
-
-describe("API", () => {
-  it("should work", async () => {
+describe("Integration tests", () => {
+  it("call with one filter and query applied", async () => {
     const client = Client({
       connection: {
         host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
@@ -145,6 +147,43 @@ describe("API", () => {
       );
 
       expect(response).toMatchSnapshot();
+    });
+  });
+
+  describe("Transporter", () => {
+    it("should allow overriding the transporter", async () => {
+      class MyCustomTransporter implements Transporter {
+        constructor() {}
+        async msearch() {
+          return HitsWithNoQueryOrFiltersResponse.responses as ElasticsearchResponseBody[];
+        }
+      }
+
+      const customTransporter = new MyCustomTransporter();
+
+      jest.spyOn(customTransporter, "msearch");
+
+      const client = Client({
+        connection: customTransporter,
+        search_settings: {
+          highlight_attributes: ["title", "actors"],
+          search_attributes: ["title", "actors", "query"],
+          result_attributes: ["title", "actors", "query"],
+          facet_attributes: [
+            "type",
+            { field: "actors.keyword", attribute: "actors", type: "string" },
+            "rated",
+            { attribute: "imdbrating", type: "numeric" },
+          ],
+        },
+      });
+
+      const response = await client.handleInstantSearchRequests(
+        nonDynamicFacetRequest as AlgoliaMultipleQueriesQuery[]
+      );
+
+      expect(customTransporter.msearch).toBeCalled();
+      expect(response);
     });
   });
 });

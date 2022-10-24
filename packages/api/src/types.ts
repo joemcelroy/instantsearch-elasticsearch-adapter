@@ -5,7 +5,6 @@ import type {
   SearchResponseBody as ElasticsearchBaseResponseBody,
   SearchHit as ElasticsearchBaseHit,
 } from "@elastic/elasticsearch/lib/api/types";
-import { Transporter } from "./Transporter";
 
 type ElasticsearchHitDocument = Record<string, unknown>;
 type ElasticsearchHit = ElasticsearchBaseHit<ElasticsearchHitDocument>;
@@ -49,8 +48,13 @@ export interface RequestOptions {
   getQuery?: (
     query: string,
     search_attributes: string[]
-  ) => ElasticsearchQuery | ElasticsearchQuery[];
-  getBaseFilters?: () => ElasticsearchQuery[];
+  ) => ElasticsearchQuery | ElasticsearchQuery[] | undefined;
+  getBaseFilters?: () => ElasticsearchQuery[] | undefined;
+}
+
+export interface Transporter {
+  config?: ClientConfigConnection;
+  msearch: (requests: SearchRequest[]) => Promise<ElasticsearchResponseBody[]>;
 }
 
 export type {

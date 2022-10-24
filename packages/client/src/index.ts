@@ -15,6 +15,9 @@ class InstantSearchElasticsearchAdapter {
     try {
       const response = await fetch(this.config.url, {
         body: JSON.stringify(instantsearchRequests),
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: "POST",
       });
 
@@ -32,6 +35,9 @@ class InstantSearchElasticsearchAdapter {
     try {
       const response = await fetch(this.config.url, {
         body: JSON.stringify(instantsearchRequests),
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: "POST",
       });
 

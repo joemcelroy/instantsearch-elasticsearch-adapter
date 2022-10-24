@@ -1,10 +1,5 @@
 import { ClientConfigConnection, SearchRequest } from "./types";
-import { ElasticsearchResponseBody } from "./types";
-
-export interface Transporter {
-  config: ClientConfigConnection;
-  msearch: (requests: SearchRequest[]) => Promise<ElasticsearchResponseBody[]>;
-}
+import { ElasticsearchResponseBody, Transporter } from "./types";
 
 export class ESTransporter implements Transporter {
   constructor(public config: ClientConfigConnection) {}

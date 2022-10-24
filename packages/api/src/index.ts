@@ -3,8 +3,14 @@ import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from "@algol
 import transformResponse, {
   transformFacetValuesResponse,
 } from "./transformResponse";
-import { ClientConfig, SearchRequest, RequestOptions } from "./types";
-import { ESTransporter, Transporter } from "./Transporter";
+import {
+  ClientConfig,
+  SearchRequest,
+  RequestOptions,
+  Transporter,
+} from "./types";
+import { ESTransporter } from "./Transporter";
+export * from "./types";
 
 class Client {
   transporter: Transporter;

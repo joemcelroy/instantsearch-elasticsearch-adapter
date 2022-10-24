@@ -13,7 +13,7 @@ export function getHighlightFields(hit: ElasticsearchHit) {
   const hitHighlights = Object.keys(_source).reduce<Record<string, any>>(
     (sum, fieldKey) => {
       const fieldValue: any = _source[fieldKey];
-      const highlightedMatch = highlight[fieldKey];
+      const highlightedMatch = highlight[fieldKey] || null;
 
       if (Array.isArray(fieldValue) && !highlightedMatch) {
         return {
@@ -25,6 +25,7 @@ export function getHighlightFields(hit: ElasticsearchHit) {
           })),
         };
       } else if (Array.isArray(highlightedMatch)) {
+        // TODO: needs to return all non matches values too
         return {
           ...sum,
           [fieldKey]: highlightedMatch.map((highlightedMatch) => {
@@ -43,34 +44,14 @@ export function getHighlightFields(hit: ElasticsearchHit) {
         };
       }
 
-      if (!highlightedMatch) {
-        return {
-          ...sum,
-          [fieldKey]: {
-            matchLevel: "none",
-            matchedWords: [],
-            value: fieldValue,
-          },
-        };
-      }
-      if (highlightedMatch) {
-        const firstMatch: string = highlightedMatch[0];
-        debugger;
-        return {
-          ...sum,
-          [fieldKey]: {
-            fullyHighlighted: false,
-            matchLevel: "full",
-            matchedWords: Array.from(
-              firstMatch.matchAll(
-                /\<ais-highlight-0000000000\>(.*?)\<\/ais-highlight-0000000000\>/g
-              )
-            ).map((match) => match[1]),
-            value: firstMatch,
-          },
-        };
-      }
-      return sum;
+      return {
+        ...sum,
+        [fieldKey]: {
+          matchLevel: "none",
+          matchedWords: [],
+          value: fieldValue,
+        },
+      };
     },
     {}
   );
