@@ -70,8 +70,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const body = JSON.parse(req.body);
-  const results = await client.handleRequest(body);
+  const results = await client.handleRequest(req.body);
   res.send(results);
 }
 ```

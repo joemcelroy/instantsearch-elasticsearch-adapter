@@ -24,8 +24,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const body = JSON.parse(req.body);
-  const results = await apiClient.handleRequest(body, {
+  const results = await apiClient.handleRequest(req.body, {
     getQuery: (query, search_attributes) => {
       return [
         {

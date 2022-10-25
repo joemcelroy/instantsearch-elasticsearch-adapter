@@ -60,8 +60,7 @@ const apiConfig = {
 const apiClient = Client(apiConfig);
 
 export default async function handler(req, res) {
-  const body = JSON.parse(req.body);
-  const results = await apiClient.handleRequest(body);
+  const results = await apiClient.handleRequest(req.body);
   res.send(results);
 }
 ```
