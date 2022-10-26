@@ -19,6 +19,9 @@ export default defineConfig([
     ...commonConfig,
     format: ["iife"],
     outDir: "dist/umd",
-    globalName: "ISESClient",
+    globalName: "ISESClientDefault",
+    footer: {
+      js: "var ISESClient = ISESClientDefault.default"
+    }
   },
 ]);
