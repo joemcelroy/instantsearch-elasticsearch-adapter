@@ -1,5 +1,11 @@
 # @ises/client
 
+## 1.2.0
+
+### Minor Changes
+
+- Fix umd issue with export needing default fn
+
 ## 1.1.1
 
 ### Patch Changes

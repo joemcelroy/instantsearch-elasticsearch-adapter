@@ -17,6 +17,29 @@ const apiClient = Client({
       { attribute: "imdbrating", type: "numeric" },
       { attribute: "metascore", type: "numeric" },
     ],
+    query_rules: [
+      {
+        conditions: [
+          {
+            context: "query",
+            match_type: "prefix",
+            value: "star",
+          },
+        ],
+        actions: [
+          {
+            action: "PinnedResult",
+            documentIds: ["tt0111161"],
+          },
+          {
+            action: "QueryAttributeBoost",
+            boost: 10,
+            attribute: "title",
+            value: "star wars",
+          },
+        ],
+      },
+    ],
   },
 });
 
@@ -25,16 +48,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const results = await apiClient.handleRequest(req.body, {
-    getQuery: (query, search_attributes) => {
-      return [
-        {
-          combined_fields: {
-            query,
-            fields: search_attributes,
-          },
-        },
-      ];
-    },
+    // getQuery: (query, search_attributes) => {
+    //   return [
+    //     {
+    //       combined_fields: {
+    //         query,
+    //         fields: search_attributes,
+    //       },
+    //     },
+    //   ];
+    // },
     getBaseFilters: () => {
       return [
         {
