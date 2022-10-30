@@ -3,17 +3,25 @@ title: Cloudflare Workers
 full: true
 ---
 
-```js
-import { Router } from "worktop";
+You must have a Cloudflare account to use Workers. If you don't have one, you can [sign up for free](https://dash.cloudflare.com/sign-up).
+
+You can see this in action on [codesandbox](https://codesandbox.io/s/cloudflare-instantsearch-example-1duhn9)
+
+## Create a Worker
+
+Follow the steps in the [quickstart guide](https://developers.cloudflare.com/workers/get-started/guide/).
+
+## Example Worker File
+
+```ts
 import Client from "@ises/api";
 
 // Initialize
-const API = new Router();
 
 const client = Client({
   connection: {
-    host: "<your-elasticsearch-host>",
-    apiKey: "<elasticsearch-api-key>", // optional
+    host: "<elasticsearch-host>",
+    apiKey: "<elasticsearch-api-key>",
   },
   search_settings: {
     highlight_attributes: ["title", "actors"],
@@ -26,11 +34,36 @@ const client = Client({
   },
 });
 
-API.add("POST", "/api/search", async (req, res) => {
-  const body = await req.body();
-  const instantSearchBody = JSON.parse(body);
-  const results = await apiClient.handleRequest(instantSearchBody);
+async function handleOptions(request: Request) {
+  return new Response(null, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
 
-  res.send(200, results);
+async function handleRequest(event: FetchEvent) {
+  if (event.request.method === "OPTIONS") {
+    // Handle CORS preflight requests
+    return handleOptions(event.request);
+  }
+
+  const body = await event.request.json();
+  const results = await client.handleRequest(body);
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "content-type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
+addEventListener("fetch", (event) => {
+  return event.respondWith(handleRequest(event));
 });
 ```
