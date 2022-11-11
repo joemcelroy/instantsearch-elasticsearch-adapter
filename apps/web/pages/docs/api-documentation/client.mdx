@@ -41,3 +41,27 @@ export default function Web() {
   );
 }
 ```
+
+### Headers
+
+You can pass headers to the client to be sent with each request.
+
+```js
+const searchClient = Client({
+  url: "/api/search",
+  headers: {
+    "x-api-key": "my-api-key",
+  },
+});
+```
+
+or you can pass a function that returns headers.
+
+```js
+const searchClient = Client({
+  url: "/api/search",
+  headers: () => ({
+    auth: "Bearer" + window.localStorage.getItem("token"),
+  }),
+});
+```
