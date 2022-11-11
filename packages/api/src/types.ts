@@ -32,6 +32,44 @@ export interface SearchSettingsConfig {
   facet_attributes?: FacetAttribute[];
   result_attributes: string[];
   highlight_attributes?: string[];
+  prefix_attributes?: string[];
+  typo_tolerance_attributes?: string[];
+  query_rules?: QueryRule[];
+}
+
+interface QueryStringRuleCondition {
+  context: "query";
+  match_type: "prefix" | "contains" | "exact";
+  value: string;
+}
+
+interface PinnedResultAction {
+  action: "PinnedResult";
+  documentIds: string[];
+}
+
+interface QueryAttributeBoostAction {
+  action: "QueryAttributeBoost";
+  attribute: string;
+  value?: string;
+  boost: number;
+}
+
+interface QueryRewriteAction {
+  action: "QueryRewrite";
+  query: string;
+}
+
+export type QueryRuleAction =
+  | PinnedResultAction
+  | QueryAttributeBoostAction
+  | QueryRewriteAction;
+
+export type QueryRuleCondition = QueryStringRuleCondition;
+
+export interface QueryRule {
+  conditions: QueryRuleCondition[];
+  actions: QueryRuleAction[];
 }
 
 export interface ClientConfig {
@@ -47,7 +85,8 @@ export type SearchRequest = {
 export interface RequestOptions {
   getQuery?: (
     query: string,
-    search_attributes: string[]
+    search_attributes: string[],
+    config: SearchSettingsConfig
   ) => ElasticsearchQuery | ElasticsearchQuery[] | undefined;
   getBaseFilters?: () => ElasticsearchQuery[] | undefined;
 }

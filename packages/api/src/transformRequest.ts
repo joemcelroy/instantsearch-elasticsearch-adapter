@@ -1,3 +1,4 @@
+import { getSatisfiedRules } from "./queryRules";
 import { FacetAttribute, RequestOptions, SearchSettingsConfig } from "./types";
 import {
   AlgoliaMultipleQueriesQuery,
@@ -233,8 +234,68 @@ export const getAggs = (
   }
 };
 
-function CombinedFieldsQuery(query: string, search_attributes: string[]) {
-  return { combined_fields: { query, fields: search_attributes } };
+export function RelevanceQueryMatch(
+  query: string,
+  search_attributes: string[],
+  config: SearchSettingsConfig
+) {
+  if (Array.isArray(config.query_rules) && config.query_rules.length > 0) {
+    const satisfiedRules = getSatisfiedRules(
+      {
+        query: query,
+      },
+      config.query_rules
+    );
+
+    const actionQueries = satisfiedRules.reduce<{
+      pinnedDocs: string[];
+      boostFunctions: any[];
+      query: string;
+    }>(
+      (sum, rule) => {
+        rule.actions.map((action) => {
+          if (action.action === "PinnedResult") {
+            sum.pinnedDocs.push(...action.documentIds);
+          } else if (action.action === "QueryRewrite") {
+            sum.query = action.query;
+          } else if (action.action === "QueryAttributeBoost") {
+            sum.boostFunctions.push({
+              filter: {
+                match: { [action.attribute]: { query: action.value } },
+              },
+              weight: action.boost,
+            });
+          }
+        });
+        return sum;
+      },
+      {
+        pinnedDocs: [],
+        boostFunctions: [],
+        query: query,
+      }
+    );
+
+    return {
+      function_score: {
+        query: {
+          pinned: {
+            ids: actionQueries.pinnedDocs,
+            organic: {
+              combined_fields: {
+                query: actionQueries.query,
+                fields: search_attributes,
+              },
+            },
+          },
+        },
+        functions: actionQueries.boostFunctions,
+      },
+    };
+  }
+  return {
+    combined_fields: { query: query, fields: search_attributes },
+  };
 }
 
 const getQuery = (
@@ -259,8 +320,8 @@ const getQuery = (
       must:
         typeof query === "string" && query !== ""
           ? requestOptions?.getQuery
-            ? requestOptions.getQuery(query, searchAttributes)
-            : CombinedFieldsQuery(query, searchAttributes)
+            ? requestOptions.getQuery(query, searchAttributes, config)
+            : RelevanceQueryMatch(query, searchAttributes, config)
           : [],
     },
   };

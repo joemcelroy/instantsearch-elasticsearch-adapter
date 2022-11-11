@@ -1,5 +1,17 @@
 # @ises/client
 
+## 1.3.0
+
+### Minor Changes
+
+- 3c724ff: support custom http headers
+
+## 1.2.0
+
+### Minor Changes
+
+- Fix umd issue with export needing default fn
+
 ## 1.1.1
 
 ### Patch Changes
