@@ -1,5 +1,6 @@
 interface InstantSearchElasticsearchAdapterConfig {
   url: string;
+  headers?: Record<string, string> | (() => Record<string, string>);
 }
 
 class InstantSearchElasticsearchAdapter {
@@ -7,6 +8,17 @@ class InstantSearchElasticsearchAdapter {
 
   public async clearCache(): Promise<void> {
     return;
+  }
+
+  private getHeaders(): Record<string, string> {
+    let headers = {};
+    if (this.config.headers) {
+      headers =
+        typeof this.config.headers === "function"
+          ? this.config.headers()
+          : this.config.headers;
+    }
+    return headers;
   }
 
   public async search(
@@ -17,6 +29,7 @@ class InstantSearchElasticsearchAdapter {
         body: JSON.stringify(instantsearchRequests),
         headers: {
           "Content-Type": "application/json",
+          ...this.getHeaders(),
         },
         method: "POST",
       });
@@ -37,6 +50,7 @@ class InstantSearchElasticsearchAdapter {
         body: JSON.stringify(instantsearchRequests),
         headers: {
           "Content-Type": "application/json",
+          ...this.getHeaders(),
         },
         method: "POST",
       });
